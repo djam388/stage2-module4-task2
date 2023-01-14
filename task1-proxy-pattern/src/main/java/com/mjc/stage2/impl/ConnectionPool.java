@@ -49,6 +49,7 @@ public class ConnectionPool {
 
     public void destroyPool() {
         freeConnections.forEach(ProxyConnection::reallyClose);
+        freeConnections.clear();
     }
 
     public int getFreeConnectionsCount() {
