@@ -40,7 +40,7 @@ public class ConnectionPool {
 
     public void releaseConnection(Connection connection) {
         if (connection.getClass() == ProxyConnection.class) {
-            if (this.getFreeConnectionsCount() < 1) {
+            if (this.getUsedConnectionsCount() < 1) {
 //                throw new RuntimeException("No connection to close!");
                 return;
             }
@@ -54,6 +54,9 @@ public class ConnectionPool {
     }
 
     public void destroyPool() {
+//        if (this.getFreeConnectionsCount() < 1) {
+//            return;
+//        }
         freeConnections.forEach(ProxyConnection::reallyClose);
         freeConnections.clear();
     }
